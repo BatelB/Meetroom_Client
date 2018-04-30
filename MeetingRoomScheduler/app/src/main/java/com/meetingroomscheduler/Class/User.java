@@ -1,7 +1,7 @@
 package com.meetingroomscheduler.Class;
 
 /**
- * Created by Rafael on 8/22/2017.
+ *
  */
 
 public class User {

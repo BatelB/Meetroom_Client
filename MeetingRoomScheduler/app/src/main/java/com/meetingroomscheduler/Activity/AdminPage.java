@@ -16,8 +16,8 @@ import com.meetingroomscheduler.R;
 import org.w3c.dom.Text;
 
 /**
- * Created by Rafael on 8/22/2017.
- */
+ *
+ * */
 
 public class AdminPage extends AppCompatActivity {
 

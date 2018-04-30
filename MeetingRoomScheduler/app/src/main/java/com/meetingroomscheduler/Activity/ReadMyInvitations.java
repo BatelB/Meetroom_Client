@@ -35,7 +35,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * Created by Rafael on 8/24/2017.
+ *
  */
 
 public class ReadMyInvitations extends AppCompatActivity {

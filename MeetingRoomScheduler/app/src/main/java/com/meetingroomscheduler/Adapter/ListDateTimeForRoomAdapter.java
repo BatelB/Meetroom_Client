@@ -37,7 +37,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * Created by Rafael on 8/23/2017.
+ *
  */
 
 public class ListDateTimeForRoomAdapter extends ArrayAdapter<String> {

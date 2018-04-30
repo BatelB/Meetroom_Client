@@ -23,7 +23,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * Created by Rafael on 8/28/2017.
+ *
  */
 
 public class EditRoom  extends AppCompatActivity {
