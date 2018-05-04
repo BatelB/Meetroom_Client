@@ -31,11 +31,14 @@ import java.util.Map;
 
 public class MainActivity extends AppCompatActivity {
 
+    // Fields in the login screen
     EditText edit_email, edit_password;
     ProgressBar progressbar;
     TextView submit;
 
+    // boolean variable to indicate if we sent the requst
     boolean sent = false;
+
 
     SharedPreferences prefs;
     SharedPreferences.Editor editor;
@@ -63,6 +66,7 @@ public class MainActivity extends AppCompatActivity {
         edit_email.setText(Global.email);
         edit_password.setText(Global.password);
 
+        // submit click
         submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -73,11 +77,14 @@ public class MainActivity extends AppCompatActivity {
                 if(sent) return;
 
                 Global.email = edit_email.getText().toString();
+
+                // mandatory email validation
                 if(Global.email.length() == 0){
                     edit_email.setError("All fields are mandatory");
                     return;
                 }
 
+                // mandatory password validation
                 Global.password = edit_password.getText().toString();
                 if(Global.password.length() == 0){
                     edit_password.setError("All fields are mandatory");
@@ -90,17 +97,20 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    // user authentication function
     private void authenticateUser(){
 
         Log.d("MainActivity.class", "authenticateUser()");
         sent = true;
         progressbar.setVisibility(View.VISIBLE);
 
+        // create hash map to store the login action with email and password parameters
         Map<String,String> map = new HashMap<>();
         map.put("email", Global.email);
         map.put("password",Global.password);
         map.put("action", "login_user");
         String params = new JSONObject(map).toString();
+
         String response = Global.query(params);
 
         Log.d("MainActivity.class", "response: " + response);

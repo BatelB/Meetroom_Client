@@ -1,5 +1,7 @@
 <resources>
 
+    <!-- User type xml -->
+
     <string name="app_name">Meeting Room Scheduler</string>
 
     <string-array name="user_type">

@@ -45,17 +45,16 @@ public class Global {
     public static String result = "fail";
     public static String line = "";
 
+    // String query gets string quary and sends it
     public static String query(final String params){
         Thread tempThread = new Thread(new Runnable(){
 
             public void run(){
                 try {
-
                     Socket socket = new Socket(adress, port);
                     DataInputStream inputStream = new DataInputStream(socket.getInputStream());
                     BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream));
                     DataOutputStream outputStream = new DataOutputStream(socket.getOutputStream());
-
                     try {
                         outputStream.writeBytes(params + "\n");
                     } catch (IOException e) {

@@ -29,8 +29,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-/**
- *
+/** Create room
+ *  Room data: number of pepole
  */
 
 public class CreateRoom extends AppCompatActivity {
