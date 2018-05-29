@@ -30,7 +30,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- *
+ * create user class
+ * params: email, password, full name and type
  */
 
 public class CreateUser extends AppCompatActivity {
@@ -70,7 +71,7 @@ public class CreateUser extends AppCompatActivity {
             public void onClick(View v) {
 
                 if(sent) return;
-
+                // validations
                 email = edit_email.getText().toString();
                 if(email.length() == 0){
                     edit_email.setError("All fields are mandatory");
@@ -88,7 +89,7 @@ public class CreateUser extends AppCompatActivity {
                     edit_fullname.setError("All fields are mandatory");
                     return;
                 }
-
+                // user type selection
                 type = "read_only";
                 if(spinner_type.getSelectedItemId() == 1)
                     type = "read_write";
@@ -115,12 +116,15 @@ public class CreateUser extends AppCompatActivity {
         sent = true;
 
         Map<String,String> map = new HashMap<>();
+        //admin email and password
         map.put("email", Global.email);
         map.put("password",Global.password);
+        // added user details
         map.put("new_email", email);
         map.put("new_password", password);
         map.put("type", type);
         map.put("fullname", fullname);
+        // adding the action type to map
         map.put("action", "create_user");
         String params = new JSONObject(map).toString();
         String response = Global.query(params);

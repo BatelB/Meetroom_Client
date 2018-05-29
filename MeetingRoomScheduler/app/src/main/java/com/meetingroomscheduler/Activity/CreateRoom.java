@@ -30,7 +30,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 /** Create room
- *  Room data: number of pepole
+ *  Room data: number of chairs, floor number,  equipment
  */
 
 public class CreateRoom extends AppCompatActivity {
@@ -69,7 +69,7 @@ public class CreateRoom extends AppCompatActivity {
             public void onClick(View v) {
 
                 if(sent) return;
-
+                // validations
                 number = edit_number.getText().toString();
                 if(number.length() == 0){
                     edit_number.setError("All fields are mandatory");
@@ -112,7 +112,7 @@ public class CreateRoom extends AppCompatActivity {
 
         progressbar.setVisibility(View.VISIBLE);
         sent = true;
-
+        // create hashmap
         Map<String,String> map = new HashMap<>();
         map.put("email", Global.email);
         map.put("password",Global.password);
@@ -120,6 +120,7 @@ public class CreateRoom extends AppCompatActivity {
         map.put("floor", floor);
         map.put("chairs", chairs);
         map.put("equipment", equipment);
+        //adding action
         map.put("action", "create_room");
         String params = new JSONObject(map).toString();
         String response = Global.query(params);

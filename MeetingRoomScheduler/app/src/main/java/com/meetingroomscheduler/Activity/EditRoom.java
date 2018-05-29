@@ -23,7 +23,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- *
+ * Edit room class
+ * to change room info
  */
 
 public class EditRoom  extends AppCompatActivity {
@@ -62,7 +63,7 @@ public class EditRoom  extends AppCompatActivity {
             public void onClick(View v) {
 
                 if(sent) return;
-
+                //validations
                 number = edit_number.getText().toString();
                 if(number.length() == 0){
                     edit_number.setError("All fields are mandatory");
@@ -101,8 +102,9 @@ public class EditRoom  extends AppCompatActivity {
 
     }
 
-    void editRoom(){
 
+    void editRoom(){
+// this function updates existing room by id
         progressbar.setVisibility(View.VISIBLE);
         sent = true;
 

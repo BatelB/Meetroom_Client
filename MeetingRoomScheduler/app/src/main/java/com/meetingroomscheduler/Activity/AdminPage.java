@@ -16,7 +16,8 @@ import com.meetingroomscheduler.R;
 import org.w3c.dom.Text;
 
 /**
- *
+ * Admin page
+ * Admin user can see more options than regular user: manage users and manage rooms
  * */
 
 public class AdminPage extends AppCompatActivity {

@@ -48,6 +48,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
+ * Edit Schedule class
+ * user can edit meeting
  *
  */
 
@@ -91,7 +93,7 @@ public class EditSchedule extends AppCompatActivity {
         if (Global.requestQueue == null) {
             Global.requestQueue = Volley.newRequestQueue(this);
         }
-
+        //load meeting invited users
         invited_users = new ArrayList<User>();
 
         TextView title = (TextView) findViewById(R.id.edit_title);
@@ -168,6 +170,7 @@ public class EditSchedule extends AppCompatActivity {
                 create_edit_begin_hour.setError(null);
                 create_edit_end_hour.setError(null);
 
+                // Validations
                 new_s_day = create_edit_day.getText().toString();
                 if (new_s_day.equals("Day")) {
                     create_edit_day.setError("You must pick day");
@@ -238,7 +241,7 @@ public class EditSchedule extends AppCompatActivity {
         }
     }
 
-
+    // Start time
     public static class beginTimePickerFragment extends DialogFragment
             implements TimePickerDialog.OnTimeSetListener {
 
@@ -259,6 +262,7 @@ public class EditSchedule extends AppCompatActivity {
         }
     }
 
+    //End time
     public static class endTimePickerFragment extends DialogFragment
             implements TimePickerDialog.OnTimeSetListener {
 
@@ -312,12 +316,14 @@ public class EditSchedule extends AppCompatActivity {
         progressbar_create_schedule.setVisibility(View.VISIBLE);
 
         Map<String,String> map = new HashMap<>();
+        // Schedul info
         map.put("email", Global.email);
         map.put("password",Global.password);
         map.put("schedule_id", Global.edit_schedule_id);
         map.put("begin_time", new_s_day + " " + new_s_begin_hour + ":00");
         map.put("end_time", new_s_day + " " + new_s_end_hour + ":00");
         map.put("invitations", invitations_json);
+        // add action
         map.put("action", "edit_schedule");
         String params = new JSONObject(map).toString();
         String response = Global.query(params);
