@@ -117,7 +117,7 @@ public class ScheduleRoomActivity  extends AppCompatActivity {
         tv_invite = (TextView) findViewById(R.id.footer_invite);
         tv_submit = (TextView) findViewById(R.id.footer_submit);
 
-        create_edit_day = (TextView) findViewById(R.id.create_edit_day);
+        create_edit_day = (TextView) findViewById(R.id.create_edit_day); //
         create_edit_begin_hour = (TextView) findViewById(R.id.create_edit_begin_hour);
         create_edit_end_hour = (TextView) findViewById(R.id.create_edit_end_hour);
 
@@ -487,7 +487,7 @@ public class ScheduleRoomActivity  extends AppCompatActivity {
 
         public PickUserDialogClass(Activity a) {
             super(a);
-            // TODO Auto-generated constructor stub
+            // maybe add Auto-generated constructor stub
             this.c = a;
         }
 

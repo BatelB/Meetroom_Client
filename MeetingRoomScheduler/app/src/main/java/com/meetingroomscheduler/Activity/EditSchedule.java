@@ -477,7 +477,7 @@ public class EditSchedule extends AppCompatActivity {
 
         public PickUserDialogClass(Activity a) {
             super(a);
-            // TODO Auto-generated constructor stub
+            // maybe add Auto-generated constructor stub
             this.c = a;
         }
 

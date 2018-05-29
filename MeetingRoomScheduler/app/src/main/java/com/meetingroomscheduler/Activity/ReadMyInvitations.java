@@ -132,6 +132,8 @@ public class ReadMyInvitations extends AppCompatActivity {
                         if(invitations_list.get(j).room.id.equals(json_item.getString("room_id"))){
                             Schedule new_schedule = new Schedule();
                             new_schedule.id = json_item.get("schedule_id").toString();
+                            //
+
                             new_schedule.begin = json_item.get("begin_time").toString();
                             new_schedule.end = json_item.get("end_time").toString();
 
