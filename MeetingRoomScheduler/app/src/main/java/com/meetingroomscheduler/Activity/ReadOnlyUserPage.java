@@ -14,7 +14,9 @@ import com.meetingroomscheduler.MainActivity;
 import com.meetingroomscheduler.R;
 
 /**
+ * Adding support to read only user
  *
+ * Read only user can only view rooms and cannot add rooms or invitations on edit them
  */
 
 public class ReadOnlyUserPage  extends AppCompatActivity {
@@ -24,14 +26,16 @@ public class ReadOnlyUserPage  extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        // set view to read only view
         setContentView(R.layout.read_only_user_page_layout);
-
+        // welcome message
         TextView welcome = (TextView) findViewById(R.id.welcome);
         welcome.setText("Welcome " + Global.current_user.fullname  + "!");
 
         button_view = (TextView) findViewById(R.id.user_view);
         logout = (TextView) findViewById(R.id.user_logout);
 
+        //view invitations button
         button_view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -39,6 +43,7 @@ public class ReadOnlyUserPage  extends AppCompatActivity {
             }
         });
 
+        //logout logic
         logout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

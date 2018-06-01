@@ -14,7 +14,9 @@ import com.meetingroomscheduler.MainActivity;
 import com.meetingroomscheduler.R;
 
 /**
+ * support read and write user
  *
+ * read and write user can view and add meetings (cannot add users\rooms)
  */
 
 public class ReadWriteUserPage extends AppCompatActivity {
@@ -23,23 +25,15 @@ public class ReadWriteUserPage extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        // load read and write view
         super.onCreate(savedInstanceState);
         setContentView(R.layout.read_write_user_page);
-
+        //welcome message
         TextView welcome = (TextView) findViewById(R.id.welcome);
         welcome.setText("Welcome " + Global.current_user.fullname  + "!");
 
+        //schedule room button
         button_schedule = (TextView) findViewById(R.id.user_schedule);
-        button_view = (TextView) findViewById(R.id.user_view);
-        logout = (TextView) findViewById(R.id.user_logout);
-
-        button_view.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(ReadWriteUserPage.this, ReadMyInvitations.class));
-            }
-        });
-
         button_schedule.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -47,6 +41,17 @@ public class ReadWriteUserPage extends AppCompatActivity {
             }
         });
 
+        //view invitation button
+        button_view = (TextView) findViewById(R.id.user_view);
+        button_view.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(ReadWriteUserPage.this, ReadMyInvitations.class));
+            }
+        });
+
+        //logout
+        logout = (TextView) findViewById(R.id.user_logout);
         logout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
