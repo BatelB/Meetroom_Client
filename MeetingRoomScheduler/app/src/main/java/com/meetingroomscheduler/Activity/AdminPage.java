@@ -17,6 +17,7 @@ import org.w3c.dom.Text;
 
 /**
  * Admin page
+ *
  * Admin user can see more options than regular user: manage users and manage rooms
  * */
 
@@ -32,13 +33,10 @@ public class AdminPage extends AppCompatActivity {
         TextView welcome = (TextView) findViewById(R.id.welcome);
         welcome.setText("Welcome " + Global.current_user.fullname + " !");
 
+
+
+        // manage users button
         admin_manage_users = (TextView) findViewById(R.id.admin_manage_users);
-        admin_manage_rooms = (TextView) findViewById(R.id.admin_manage_rooms);
-        admin_schedule = (TextView) findViewById(R.id.admin_schedule);
-        admin_view = (TextView) findViewById(R.id.admin_view);
-
-        logout = (TextView) findViewById(R.id.admin_logout);
-
         admin_manage_users.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -46,6 +44,8 @@ public class AdminPage extends AppCompatActivity {
             }
         });
 
+        //manage rooms button
+        admin_manage_rooms = (TextView) findViewById(R.id.admin_manage_rooms);
         admin_manage_rooms.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -53,6 +53,8 @@ public class AdminPage extends AppCompatActivity {
             }
         });
 
+        // schedule room button
+        admin_schedule = (TextView) findViewById(R.id.admin_schedule);
         admin_schedule.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -60,6 +62,8 @@ public class AdminPage extends AppCompatActivity {
             }
         });
 
+        // view invitations button
+        admin_view = (TextView) findViewById(R.id.admin_view);
         admin_view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -67,6 +71,8 @@ public class AdminPage extends AppCompatActivity {
             }
         });
 
+        // logout button
+        logout = (TextView) findViewById(R.id.admin_logout);
         logout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
