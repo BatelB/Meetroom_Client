@@ -28,29 +28,38 @@ public class Global {
     // current user 
     public static User current_user = new User();
 
+    // request Queue
     public static RequestQueue requestQueue;
 
+    // chosen room
     public static int view_room_index = 0;
 
+    // chosen schedule
     public static String edit_schedule_id = "";
 
     //######################### SOCKET #########################
-    public static String address = "35.169.147.205";//"172.31.57.222";//"34.201.38.146"; //"192.168.100.4";
+    public static String address = "35.169.147.205"; //old addresses "172.31.57.222";//"34.201.38.146"; //"192.168.100.4";
     public static int port = 55555;
 
     public static String result = "fail";
     public static String line = "";
 
-    // String query gets string quary and sends it
+    // String query - gets string query and sends it
     public static String query(final String params){
         Thread tempThread = new Thread(new Runnable(){
 
             public void run(){
                 try {
+                    // open socket
                     Socket socket = new Socket(address, port);
+                    // data input and output stream
                     DataInputStream inputStream = new DataInputStream(socket.getInputStream());
-                    BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream));
                     DataOutputStream outputStream = new DataOutputStream(socket.getOutputStream());
+
+                    // BufferedReader Creates a buffering character-input stream that uses a default-sized input buffer.
+                    BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream));
+
+
                     try {
                         outputStream.writeBytes(params + "\n");
                     } catch (IOException e) {
