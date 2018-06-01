@@ -24,7 +24,8 @@ import java.util.Map;
 
 /**
  * Edit room class
- * to change room info
+ *
+ * support admin option to edit room info
  */
 
 public class EditRoom  extends AppCompatActivity {

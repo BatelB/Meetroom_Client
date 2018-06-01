@@ -36,7 +36,7 @@ public class MainActivity extends AppCompatActivity {
     ProgressBar progressbar;
     TextView submit;
 
-    // boolean variable to indicate if we sent the requst
+    // boolean variable to indicate if we sent the request
     boolean sent = false;
 
 

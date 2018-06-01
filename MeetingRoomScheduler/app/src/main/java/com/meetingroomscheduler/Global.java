@@ -1,35 +1,31 @@
 package com.meetingroomscheduler;
 
-import android.os.CountDownTimer;
-import android.renderscript.ScriptGroup;
 import android.util.Log;
 
 import com.android.volley.RequestQueue;
-import com.android.volley.toolbox.Volley;
 import com.meetingroomscheduler.Class.User;
 
 import java.io.BufferedReader;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.io.OutputStream;
 import java.net.Socket;
 import java.net.UnknownHostException;
-import java.util.Map;
 
 /**
  *
  */
 
 public class Global {
-
+    // current user email and password
     public static String email = "";
     public static String password = "";
 
+    // server base URL
     public static String base_URL = "https://meetingproject.000webhostapp.com";
 
+    // current user 
     public static User current_user = new User();
 
     public static RequestQueue requestQueue;
@@ -39,7 +35,7 @@ public class Global {
     public static String edit_schedule_id = "";
 
     //######################### SOCKET #########################
-    public static String adress = "35.169.147.205";//"172.31.57.222";//"34.201.38.146"; //"192.168.100.4";
+    public static String address = "35.169.147.205";//"172.31.57.222";//"34.201.38.146"; //"192.168.100.4";
     public static int port = 55555;
 
     public static String result = "fail";
@@ -51,7 +47,7 @@ public class Global {
 
             public void run(){
                 try {
-                    Socket socket = new Socket(adress, port);
+                    Socket socket = new Socket(address, port);
                     DataInputStream inputStream = new DataInputStream(socket.getInputStream());
                     BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream));
                     DataOutputStream outputStream = new DataOutputStream(socket.getOutputStream());
