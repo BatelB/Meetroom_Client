@@ -30,7 +30,9 @@ import java.util.HashMap;
 import java.util.Map;
 
 /** Create room
- *  Room data: number of chairs, floor number,  equipment
+ *
+ *  add Room support.
+ *  data: number of chairs, floor number,  equipment
  */
 
 public class CreateRoom extends AppCompatActivity {
@@ -47,6 +49,7 @@ public class CreateRoom extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        // display add room layout
         super.onCreate(savedInstanceState);
         setContentView(R.layout.create_room_layout);
 
@@ -55,15 +58,25 @@ public class CreateRoom extends AppCompatActivity {
             Global.requestQueue = Volley.newRequestQueue(this);
         }
 
+        // room info
         edit_number = (EditText) findViewById(R.id.add_room_edit_number);
         edit_floor = (EditText) findViewById(R.id.add_room_edit_floor);
         edit_chairs = (EditText) findViewById(R.id.add_room_edit_chairs);
         edit_equipment = (EditText) findViewById(R.id.add_room_edit_equipment);
 
         progressbar = (ProgressBar) findViewById(R.id.progressbar);
-        back = (TextView) findViewById(R.id.back);
-        submit = (TextView) findViewById(R.id.submit);
 
+        // back button
+        back = (TextView) findViewById(R.id.back);
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
+
+        // Submit button
+        submit = (TextView) findViewById(R.id.submit);
         submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -98,20 +111,15 @@ public class CreateRoom extends AppCompatActivity {
             }
         });
 
-
-        back.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
-            }
-        });
-
     }
 
     void createRoom(){
 
+        // display progress bar
         progressbar.setVisibility(View.VISIBLE);
+
         sent = true;
+
         // create hashmap
         Map<String,String> map = new HashMap<>();
         map.put("email", Global.email);
@@ -122,12 +130,16 @@ public class CreateRoom extends AppCompatActivity {
         map.put("equipment", equipment);
         //adding action
         map.put("action", "create_room");
+
+        // converting the map to string in order to send request
         String params = new JSONObject(map).toString();
+        // send request ans store response string
         String response = Global.query(params);
 
         progressbar.setVisibility(View.GONE);
         sent = false;
 
+        // errors or success print
         if(response.equals("fail")){
             Toast.makeText(CreateRoom.this, "Error, please make sure there is internet connection and retry", Toast.LENGTH_LONG).show();
         }if(response.equals("bad_request")){
@@ -135,7 +147,7 @@ public class CreateRoom extends AppCompatActivity {
         }else if(response.equals("success")){
             Toast.makeText(CreateRoom.this, "New room created !", Toast.LENGTH_SHORT).show();
         }else{
-            Toast.makeText(CreateRoom.this, "Error, could not create user", Toast.LENGTH_SHORT).show();
+            Toast.makeText(CreateRoom.this, "Error, could not create room", Toast.LENGTH_SHORT).show();
         }
 
     }
