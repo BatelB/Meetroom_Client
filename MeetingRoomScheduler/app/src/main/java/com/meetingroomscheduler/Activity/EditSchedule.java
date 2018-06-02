@@ -487,13 +487,15 @@ public class EditSchedule extends AppCompatActivity {
             requestWindowFeature(Window.FEATURE_NO_TITLE);
             setContentView(R.layout.invite_dialog);
 
+            // invited user count
             header = (TextView) findViewById(R.id.invited_dialog_counter);
-            listview = (ListView) findViewById(R.id.invite_dialog_listview);
-            progressbar = (ProgressBar) findViewById(R.id.invite_dialog_progressbar);
-            submit = (TextView) findViewById(R.id.invite_dialog_add);
-
             header.setText("Invited users : " + Integer.toString(invitations) + "/" + Integer.toString(max_invitations));
+            listview = (ListView) findViewById(R.id.invite_dialog_listview);
 
+            progressbar = (ProgressBar) findViewById(R.id.invite_dialog_progressbar);
+
+            // submit button
+            submit = (TextView) findViewById(R.id.invite_dialog_add);
             submit.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {

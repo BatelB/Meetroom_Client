@@ -32,7 +32,9 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
+ * Manage rooms
  *
+ * Admin has the option to add edit and delete rooms
  */
 
 public class ManageRooms extends AppCompatActivity {
@@ -52,6 +54,7 @@ public class ManageRooms extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        // display view
         super.onCreate(savedInstanceState);
         setContentView(R.layout.admin_manage_rooms_layout);
 
@@ -63,13 +66,17 @@ public class ManageRooms extends AppCompatActivity {
         if(Global.requestQueue == null) {
             Global.requestQueue = Volley.newRequestQueue(this);
         }
-
+        // Back button
         back  = (TextView) findViewById(R.id.back);
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
+
+        // Add room button
         add_room = (TextView) findViewById(R.id.add);
-
-        progressbar = (ProgressBar) findViewById(R.id.manage_rooms_progressbar);
-        listview = (ListView) findViewById(R.id.listview);
-
         add_room.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -77,12 +84,8 @@ public class ManageRooms extends AppCompatActivity {
             }
         });
 
-        back.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
-            }
-        });
+        progressbar = (ProgressBar) findViewById(R.id.manage_rooms_progressbar);
+        listview = (ListView) findViewById(R.id.listview);
 
         getRooms();
 

@@ -120,6 +120,7 @@ public class EditRoom  extends AppCompatActivity {
         map.put("equipment", equipment);
         map.put("action", "edit_room");
         String params = new JSONObject(map).toString();
+        //send request and store response
         String response = Global.query(params);
 
         progressbar.setVisibility(View.GONE);

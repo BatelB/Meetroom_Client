@@ -36,7 +36,9 @@ import java.util.Map;
 import java.util.concurrent.Exchanger;
 
 /**
+ * manage users
  *
+ * Admin user can add, edit and delete users
  */
 
 public class ManageUsers  extends AppCompatActivity {
@@ -56,6 +58,7 @@ public class ManageUsers  extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+       // display view
         super.onCreate(savedInstanceState);
         setContentView(R.layout.admin_manage_users_layout);
 
@@ -68,12 +71,17 @@ public class ManageUsers  extends AppCompatActivity {
             Global.requestQueue = Volley.newRequestQueue(this);
         }
 
+        // Back button
         back  = (TextView) findViewById(R.id.back);
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
+
+        // Add user button
         add_user = (TextView) findViewById(R.id.add);
-
-        progressbar = (ProgressBar) findViewById(R.id.manage_users_progressbar);
-        listview = (ListView) findViewById(R.id.listview);
-
         add_user.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -81,12 +89,8 @@ public class ManageUsers  extends AppCompatActivity {
             }
         });
 
-        back.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
-            }
-        });
+        progressbar = (ProgressBar) findViewById(R.id.manage_users_progressbar);
+        listview = (ListView) findViewById(R.id.listview);
 
         getUsers();
 
@@ -111,17 +115,19 @@ public class ManageUsers  extends AppCompatActivity {
 
         progressbar.setVisibility(View.VISIBLE);
         sent = true;
-
+        // create hashmap with all elements
         Map<String,String> map = new HashMap<>();
         map.put("email", Global.email);
         map.put("password",Global.password);
         map.put("action", "get_users_list");
         String params = new JSONObject(map).toString();
+        // send request and store response
         String response = Global.query(params);
 
         progressbar.setVisibility(View.GONE);
         sent = false;
 
+        // if failed show error if not show all users
         if(response.equals("fail")){
             Toast.makeText(ManageUsers.this, "Error, please make sure there is internet connection and retry", Toast.LENGTH_LONG).show();
         }else {
@@ -132,6 +138,7 @@ public class ManageUsers  extends AppCompatActivity {
                 for(int i=0;i<json.length();i++){
                     JSONObject json_item = new JSONObject(json.get(i).toString());
 
+                    // display users one by one
                     User new_item = new User();
                     new_item.id = json_item.getString("id");
                     new_item.entry_date = json_item.getString("entry_date");
