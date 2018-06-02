@@ -31,6 +31,7 @@ import java.util.Map;
 
 /**
  * create user class
+ *
  * params: email, password, full name and type
  */
 
@@ -49,6 +50,7 @@ public class CreateUser extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        //display create user screen
         super.onCreate(savedInstanceState);
         setContentView(R.layout.create_user_layout);
 
@@ -57,15 +59,16 @@ public class CreateUser extends AppCompatActivity {
             Global.requestQueue = Volley.newRequestQueue(this);
         }
 
+        // User info
         edit_fullname = (EditText) findViewById(R.id.add_user_edit_fullname);
         edit_password = (EditText) findViewById(R.id.add_user_edit_password);
         edit_email = (EditText) findViewById(R.id.add_user_edit_email);
         spinner_type = (Spinner) findViewById(R.id.add_user_spinner_type);
+
         progressbar = (ProgressBar) findViewById(R.id.progressbar);
-        back = (TextView) findViewById(R.id.back);
+
+        // submit button
         submit = (TextView) findViewById(R.id.submit);
-
-
         submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -100,7 +103,8 @@ public class CreateUser extends AppCompatActivity {
             }
         });
 
-
+        // Back button
+        back = (TextView) findViewById(R.id.back);
         back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -112,6 +116,7 @@ public class CreateUser extends AppCompatActivity {
 
     void createUser(){
 
+        // display progress bar
         progressbar.setVisibility(View.VISIBLE);
         sent = true;
 
@@ -132,12 +137,14 @@ public class CreateUser extends AppCompatActivity {
         progressbar.setVisibility(View.GONE);
         sent = false;
 
+        // display response
         if(response.equals("fail")){
             Toast.makeText(CreateUser.this, "Error, please make sure there is internet connection and retry", Toast.LENGTH_LONG).show();
         }if(response.equals("bad_request")){
             Toast.makeText(CreateUser.this, "Database error", Toast.LENGTH_LONG).show();
         }else if(response.equals("success")){
             Toast.makeText(CreateUser.this, "New " + type + " user : " + fullname + " created !", Toast.LENGTH_SHORT).show();
+            // clear fields
             edit_fullname.setText("");
             edit_password.setText("");
             edit_email.setText("");
