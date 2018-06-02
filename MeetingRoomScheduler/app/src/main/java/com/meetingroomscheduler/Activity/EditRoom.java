@@ -49,21 +49,21 @@ public class EditRoom  extends AppCompatActivity {
         if(Global.requestQueue == null) {
             Global.requestQueue = Volley.newRequestQueue(this);
         }
-
+        // Room info
         edit_number = (EditText) findViewById(R.id.add_room_edit_number);
         edit_floor = (EditText) findViewById(R.id.add_room_edit_floor);
         edit_chairs = (EditText) findViewById(R.id.add_room_edit_chairs);
         edit_equipment = (EditText) findViewById(R.id.add_room_edit_equipment);
 
         progressbar = (ProgressBar) findViewById(R.id.progressbar);
-        back = (TextView) findViewById(R.id.back);
+        // submit button
         submit = (TextView) findViewById(R.id.submit);
-
         submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
                 if(sent) return;
+
                 //validations
                 number = edit_number.getText().toString();
                 if(number.length() == 0){
@@ -92,8 +92,8 @@ public class EditRoom  extends AppCompatActivity {
                 editRoom();
             }
         });
-
-
+        // back button
+        back = (TextView) findViewById(R.id.back);
         back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -105,10 +105,11 @@ public class EditRoom  extends AppCompatActivity {
 
 
     void editRoom(){
-// this function updates existing room by id
+        // this function updates existing room by id
         progressbar.setVisibility(View.VISIBLE);
         sent = true;
 
+        // adding all the info to hash map
         Map<String,String> map = new HashMap<>();
         map.put("email", Global.email);
         map.put("password",Global.password);
@@ -124,6 +125,7 @@ public class EditRoom  extends AppCompatActivity {
         progressbar.setVisibility(View.GONE);
         sent = false;
 
+        // display response
         if(response.equals("fail")){
             Toast.makeText(EditRoom.this, "Error, please make sure there is internet connection and retry", Toast.LENGTH_LONG).show();
         }if(response.equals("bad_request")){
@@ -133,7 +135,6 @@ public class EditRoom  extends AppCompatActivity {
         }else{
             Toast.makeText(EditRoom.this, "Error, could not create user", Toast.LENGTH_SHORT).show();
         }
-
     }
 
     @Override
