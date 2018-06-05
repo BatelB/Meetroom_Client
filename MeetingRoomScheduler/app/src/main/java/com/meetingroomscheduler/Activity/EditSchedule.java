@@ -398,7 +398,7 @@ public class EditSchedule extends AppCompatActivity {
 
 
                 if(json.getString("end").length() >= 16)
-                    create_edit_end_hour.setText(json.getString("begin").substring(10, 16));
+                    create_edit_end_hour.setText(json.getString("end").substring(10, 16));
 
                 Log.d("MainActivity.class","Invitations : " + json.getString("invitations"));
 
