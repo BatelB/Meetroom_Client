@@ -512,62 +512,39 @@ public class EditSchedule extends AppCompatActivity {
             progressbar.setVisibility(View.VISIBLE);
             sent = true;
 
-            StringRequest stringRequest = new StringRequest(Request.Method.POST, Global.base_URL + "/php/get_users_list.php",
-                    new Response.Listener<String>() {
-                        @Override
-                        public void onResponse(String response) {
+            Map<String, String> map = new HashMap<>();
+            map.put("email", Global.email);
+            map.put("password", Global.password);
+            map.put("id", Global.edit_schedule_id);
+            map.put("action", "get_schedule_by_id");
+            String params = new JSONObject(map).toString();
+            String response = Global.query(params);
 
-                            Log.d("MainActivity.class", "Response getUsers : " + response);
-                            progressbar.setVisibility(View.GONE);
-                            sent = false;
+            try {
+                users_list = new ArrayList<User>();
+                JSONObject json = new JSONObject(response);
+                String temp = json.get("invitations").toString();
+                temp.substring(1, temp.length() - 1);
+                JSONArray jsonArray = new JSONArray(temp);
 
-                            users_list = new ArrayList<User>();
-
-                            try {
-                                JSONArray json = new JSONArray(response);
-
-                                for (int i = 0; i < json.length(); i++) {
-                                    JSONObject json_item = new JSONObject(json.get(i).toString());
-
-                                    User new_item = new User();
-                                    new_item.id = json_item.getString("id");
-                                    new_item.entry_date = json_item.getString("entry_date");
-                                    new_item.email = json_item.getString("email");
-                                    new_item.fullname = json_item.getString("fullname");
-                                    new_item.type = json_item.getString("type");
-
-                                    users_list.add(new_item);
-
-                                }
-
-                                Log.d("MainActivity.class", "Response length : " + response);
-
-                                renderList();
-
-                            } catch (JSONException e) {
-                                e.printStackTrace();
-                            }
-
-                        }
-                    },
-                    new Response.ErrorListener() {
-                        @Override
-                        public void onErrorResponse(VolleyError error) {
-                            sent = false;
-                            progressbar.setVisibility(View.GONE);
-                            Toast.makeText(context, "Error, please make sure there is internet connection and retry", Toast.LENGTH_LONG).show();
-                        }
-                    }) {
-                @Override
-                protected Map<String, String> getParams() {
-                    Map<String, String> params = new HashMap<String, String>();
-
-                    return params;
+                for (int i = 0; i < jsonArray.length(); i++) {
+                    JSONObject json_item = new JSONObject(jsonArray.get(i).toString());
+                    User new_item = new User();
+                    new_item.id = json_item.getString("user_id");
+                    new_item.entry_date = "15/3/18";
+                    new_item.email = "b@f.d";
+                    new_item.fullname = json_item.getString("fullname");
+                    new_item.type = "admin";
+                    users_list.add(new_item);
                 }
+                Log.d("MainActivity.class", "Response length : " + response);
+                renderList();
+                progressbar.setVisibility(View.GONE);
 
-            };
 
-            Global.requestQueue.add(stringRequest);
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
         }
 
         void renderList() {
