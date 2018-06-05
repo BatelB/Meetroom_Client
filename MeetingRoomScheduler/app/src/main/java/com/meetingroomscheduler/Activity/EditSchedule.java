@@ -531,10 +531,7 @@ public class EditSchedule extends AppCompatActivity {
                     JSONObject json_item = new JSONObject(jsonArray.get(i).toString());
                     User new_item = new User();
                     new_item.id = json_item.getString("user_id");
-                    new_item.entry_date = "15/3/18";
-                    new_item.email = "b@f.d";
                     new_item.fullname = json_item.getString("fullname");
-                    new_item.type = "admin";
                     users_list.add(new_item);
                 }
                 Log.d("MainActivity.class", "Response length : " + response);
