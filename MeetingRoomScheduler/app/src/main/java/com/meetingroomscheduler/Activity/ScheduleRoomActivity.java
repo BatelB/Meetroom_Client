@@ -348,7 +348,7 @@ public class ScheduleRoomActivity  extends AppCompatActivity {
         }else if(response.equals("database_error")){
             Toast.makeText(context, "Error, database failed to create entry", Toast.LENGTH_LONG).show();
         }else {
-            if(TextUtils.isDigitsOnly(response)){
+            if(response.contains("id")){
                 Toast.makeText(context, "New schedule inserted, with id : " + response + ".", Toast.LENGTH_SHORT).show();
                 create_edit_day.setText("Day");
                 create_edit_begin_hour.setText("Begin hour");

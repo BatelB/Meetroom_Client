@@ -49,7 +49,7 @@ import java.util.Map;
 
 /**
  * Edit Schedule class
- * user can edit meeting
+ * user can view and edit meeting
  *
  */
 
@@ -82,6 +82,7 @@ public class EditSchedule extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        // show view
         super.onCreate(savedInstanceState);
         setContentView(R.layout.edit_schedule_activity);
 
@@ -109,6 +110,7 @@ public class EditSchedule extends AppCompatActivity {
         listview_invited_users = (ListView) findViewById(R.id.invited_users_listview);
         progressbar_create_schedule = (ProgressBar) findViewById(R.id.create_progressbar);
 
+        // display amont of invited users
         invited_title = (TextView) findViewById(R.id.invited_title);
         invited_title.setText("Invited users : " + "1/" + ScheduleActivity.rooms_list.get(Global.view_room_index).chairs);
 
