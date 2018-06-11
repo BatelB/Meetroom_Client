@@ -29,6 +29,12 @@ import org.w3c.dom.Text;
 import java.util.HashMap;
 import java.util.Map;
 
+
+/**
+ * main activity class - the main class of the app
+ * displays the login page
+ */
+
 public class MainActivity extends AppCompatActivity {
 
     // Fields in the login screen
@@ -39,12 +45,12 @@ public class MainActivity extends AppCompatActivity {
     // boolean variable to indicate if we sent the request
     boolean sent = false;
 
-
-    SharedPreferences prefs;
-    SharedPreferences.Editor editor;
+    SharedPreferences prefs; // stores the email and password for output stream
+    SharedPreferences.Editor editor; //Returns a reference to the same Editor object to chain put calls together
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        //display login
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
@@ -124,14 +130,18 @@ public class MainActivity extends AppCompatActivity {
                 JSONObject json = new JSONObject(response);
 
                 if (json.getString("status").equals("true")) {
+
                     editor.putString("email", Global.email);
                     editor.putString("password", Global.password);
                     editor.commit();
+                    // show user notification
                     Toast.makeText(MainActivity.this, json.getString("message"), Toast.LENGTH_SHORT).show();
+                    // save curr user to global
                     Global.current_user.id = json.getString("id");
                     Global.current_user.email = Global.email;
                     Global.current_user.type = json.getString("type");
                     Global.current_user.fullname = json.getString("fullname");
+                    // show menu
                     if (Global.current_user.type.equals("admin")) {
                         startActivity(new Intent(MainActivity.this, AdminPage.class));
                         finish();

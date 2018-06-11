@@ -14,7 +14,8 @@ import java.net.Socket;
 import java.net.UnknownHostException;
 
 /**
- *
+ * global class maintains server and DB settings
+ * the class the sends query to the db
  */
 
 public class Global {
@@ -61,6 +62,7 @@ public class Global {
 
 
                     try {
+                        // #### request ####
                         outputStream.writeBytes(params + "\n");
                     } catch (IOException e) {
                         e.printStackTrace();
@@ -68,8 +70,9 @@ public class Global {
 
                         while (true) {
                                 try {
+                                    // read the first row from buffer
                                     line = bufferedReader.readLine();
-                                    if (line == null) {
+                                    if (line == null) { // Empty buffer
                                         clear(bufferedReader, inputStream, outputStream, socket);
                                         return;
                                     }else{
@@ -94,16 +97,19 @@ public class Global {
             }
         });
 
+        // // TODO: 6/11/2018 remove?
         tempThread.start();
         try {
             tempThread.join(5000);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
+        /// end of to do
 
         return result;
     }
 
+    // clear function clears the data from buffer, input and output stream and closes socket
     public static void clear(BufferedReader bufferedReader, DataInputStream inputStream, DataOutputStream outputStream, Socket socket){
 
         Log.d("MainActivity.class", "clear()");
