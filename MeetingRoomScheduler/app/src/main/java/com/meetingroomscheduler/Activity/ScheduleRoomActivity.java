@@ -9,6 +9,9 @@ import android.app.TimePickerDialog;
 import android.content.Context;
 import android.content.Intent;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
@@ -58,7 +61,7 @@ import java.util.Map;
  *
  */
 
-public class ScheduleRoomActivity  extends AppCompatActivity {
+public class ScheduleRoomActivity extends AppCompatActivity {
 
     public static ProgressBar progressbar;
     TextView tv_invite, tv_submit;
@@ -137,7 +140,7 @@ public class ScheduleRoomActivity  extends AppCompatActivity {
 
         renderInvitations();
 
-        if(ScheduleActivity.rooms_list.get(Global.view_room_index).chairs.length() > 0) {
+        if (ScheduleActivity.rooms_list.get(Global.view_room_index).chairs.length() > 0) {
             max_invitations = Integer.parseInt(ScheduleActivity.rooms_list.get(Global.view_room_index).chairs);
         }
 
@@ -178,31 +181,42 @@ public class ScheduleRoomActivity  extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                if(sent) return;
+                if (sent) return;
 
                 create_edit_day.setError(null);
                 create_edit_begin_hour.setError(null);
                 create_edit_end_hour.setError(null);
 
                 new_s_day = create_edit_day.getText().toString();
-                if(new_s_day.equals("Day")){
+                if (new_s_day.equals("Day")) {
                     create_edit_day.setError("You must pick day");
                     return;
                 }
 
                 new_s_begin_hour = create_edit_begin_hour.getText().toString();
-                if( new_s_begin_hour.equals("Begin hour")){
+                if (new_s_begin_hour.equals("Begin hour")) {
                     create_edit_begin_hour.setError("You must pick day");
                     return;
                 }
 
                 new_s_end_hour = create_edit_end_hour.getText().toString();
-                if(new_s_end_hour.equals("End Hour")){
+                if (new_s_end_hour.equals("End Hour")) {
                     create_edit_end_hour.setError("You must pick day");
                     return;
                 }
 
-                if(invitations < 2){
+                try {
+                    Date begin_hour = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(new_s_begin_hour);
+                    Date end_hour = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(new_s_end_hour);
+                    if (begin_hour.after(end_hour) || begin_hour.equals(end_hour)) {
+                        create_edit_end_hour.setError("invalid times");
+                        return;
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+
+                if (invitations < 2) {
                     Toast.makeText(context, "You didn't invited any user", Toast.LENGTH_SHORT).show();
                     return;
                 }
@@ -210,17 +224,17 @@ public class ScheduleRoomActivity  extends AppCompatActivity {
                 try {
 
                     JSONArray json_array = new JSONArray();
-                    for(int i=0;i<invited_users.size();i++) {
+                    for (int i = 0; i < invited_users.size(); i++) {
                         JSONObject json_item = new JSONObject();
 
-                            json_item.put("id",invited_users.get(i).id);
-                            json_array.put(json_item);
+                        json_item.put("id", invited_users.get(i).id);
+                        json_array.put(json_item);
 
                     }
 
                     invitations_json = json_array.toString();
 
-                    Log.d("MainActivity.class","Final invitations json : " + invitations_json);
+                    Log.d("MainActivity.class", "Final invitations json : " + invitations_json);
 
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -250,7 +264,7 @@ public class ScheduleRoomActivity  extends AppCompatActivity {
         }
 
         public void onDateSet(DatePicker view, int year, int month, int day) {
-            ScheduleRoomActivity.create_edit_day.setText(intToDateElement(year) + "-" +intToDateElement(month + 1) + "-" + intToDateElement(day));
+            ScheduleRoomActivity.create_edit_day.setText(intToDateElement(year) + "-" + intToDateElement(month + 1) + "-" + intToDateElement(day));
         }
     }
 
@@ -295,40 +309,42 @@ public class ScheduleRoomActivity  extends AppCompatActivity {
         }
     }
 
-    public static String intToDateElement(int a){
+    public static String intToDateElement(int a) {
         String val = Integer.toString(a);
         Log.d("MainActivity.class", "Integer value : " + val + "   length : ");
-        if(val.length() > 1){
+        if (val.length() > 1) {
             return val;
-        }else{
+        } else {
             return "0" + val;
         }
     }
 
     boolean paused = false;
 
-    @Override public void onPause(){
+    @Override
+    public void onPause() {
         super.onPause();
         paused = true;
     }
 
-    @Override public void onResume(){
+    @Override
+    public void onResume() {
         super.onResume();
-        if(paused){
+        if (paused) {
             paused = false;
             getSchedule();
         }
     }
 
 
-    void createSchedule(){
+    void createSchedule() {
 
         sent = true;
         progressbar_create_schedule.setVisibility(View.VISIBLE);
 
-        Map<String,String> map = new HashMap<>();
+        Map<String, String> map = new HashMap<>();
         map.put("email", Global.email);
-        map.put("password",Global.password);
+        map.put("password", Global.password);
         map.put("room_id", ScheduleActivity.rooms_list.get(Global.view_room_index).id);
         map.put("begin_time", new_s_day + " " + new_s_begin_hour + ":00");
         map.put("end_time", new_s_day + " " + new_s_end_hour + ":00");
@@ -341,14 +357,14 @@ public class ScheduleRoomActivity  extends AppCompatActivity {
         progressbar_create_schedule.setVisibility(View.GONE);
         sent = false;
 
-        if(response.equals("fail")){
+        if (response.equals("fail")) {
             Toast.makeText(context, "Error, please make sure there is internet connection and retry", Toast.LENGTH_LONG).show();
-        }else if(response.equals("bad_request")){
+        } else if (response.equals("bad_request")) {
             Toast.makeText(context, "Error, bad user request, please authenticate again", Toast.LENGTH_LONG).show();
-        }else if(response.equals("database_error")){
+        } else if (response.equals("database_error")) {
             Toast.makeText(context, "Error, database failed to create entry", Toast.LENGTH_LONG).show();
-        }else {
-            if(TextUtils.isDigitsOnly(response)){
+        } else {
+            if (TextUtils.isDigitsOnly(response)) {
                 Toast.makeText(context, "New schedule inserted, with id : " + response + ".", Toast.LENGTH_SHORT).show();
                 create_edit_day.setText("Day");
                 create_edit_begin_hour.setText("Begin hour");
@@ -364,7 +380,7 @@ public class ScheduleRoomActivity  extends AppCompatActivity {
 
                 getSchedule();
 
-            }else{
+            } else {
                 Toast.makeText(context, "Error, could not set schedule", Toast.LENGTH_SHORT).show();
             }
         }
@@ -373,7 +389,7 @@ public class ScheduleRoomActivity  extends AppCompatActivity {
 
     public static InvitedUsersListAdapter invited_adapter;
 
-    public static void renderInvitations(){
+    public static void renderInvitations() {
 
         invited_adapter = new InvitedUsersListAdapter(context, invited_users);
         listview_invited_users.setAdapter(invited_adapter);
@@ -382,14 +398,14 @@ public class ScheduleRoomActivity  extends AppCompatActivity {
         invited_title.setText("Invited users : " + Integer.toString(invitations) + "/" + ScheduleActivity.rooms_list.get(Global.view_room_index).chairs);
     }
 
-    void getSchedule(){
+    void getSchedule() {
 
         sent = true;
         progressbar.setVisibility(View.VISIBLE);
 
-        Map<String,String> map = new HashMap<>();
+        Map<String, String> map = new HashMap<>();
         map.put("email", Global.email);
-        map.put("password",Global.password);
+        map.put("password", Global.password);
         map.put("room_id", ScheduleActivity.rooms_list.get(Global.view_room_index).id);
         map.put("action", "get_schedule_for_room");
         String params = new JSONObject(map).toString();
@@ -399,16 +415,16 @@ public class ScheduleRoomActivity  extends AppCompatActivity {
         progressbar.setVisibility(View.GONE);
         sent = false;
 
-        if(response.equals("fail")){
+        if (response.equals("fail")) {
             Toast.makeText(context, "Error, please make sure there is internet connection and retry", Toast.LENGTH_LONG).show();
-        }else if(response.equals("bad_request")){
+        } else if (response.equals("bad_request")) {
             Toast.makeText(context, "Error, bad user request, please authenticate again", Toast.LENGTH_LONG).show();
-        }else {
+        } else {
             schedule_list = new ArrayList<Schedule>();
 
             try {
                 JSONArray json = new JSONArray(response);
-                for(int i=0;i<json.length();i++){
+                for (int i = 0; i < json.length(); i++) {
                     JSONObject json_item = new JSONObject(json.get(i).toString());
                     Schedule new_item = new Schedule();
                     new_item.id = json_item.getString("id");
@@ -421,7 +437,7 @@ public class ScheduleRoomActivity  extends AppCompatActivity {
 
                 renderList();
 
-            }catch (JSONException e) {
+            } catch (JSONException e) {
                 e.printStackTrace();
             }
         }
@@ -429,11 +445,11 @@ public class ScheduleRoomActivity  extends AppCompatActivity {
     }
 
 
-    public static void renderList(){
+    public static void renderList() {
 
-            adapter = new ListDateTimeForRoomAdapter(context, schedule_list);
-            listview.setAdapter(adapter);
-            setListViewHeightBasedOnChildren(listview);
+        adapter = new ListDateTimeForRoomAdapter(context, schedule_list);
+        listview.setAdapter(adapter);
+        setListViewHeightBasedOnChildren(listview);
 
 //            listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 //                @Override
@@ -467,7 +483,7 @@ public class ScheduleRoomActivity  extends AppCompatActivity {
     }
 
 
-    public static class PickUserDialogClass extends Dialog{
+    public static class PickUserDialogClass extends Dialog {
 
         public Activity c;
         public Dialog d;
@@ -515,16 +531,16 @@ public class ScheduleRoomActivity  extends AppCompatActivity {
 
         }
 
-        void getUsers(){
+        void getUsers() {
 
             Log.d("MainActivity.class", "getUsers()");
 
             sent = true;
             progressbar.setVisibility(View.VISIBLE);
 
-            Map<String,String> map = new HashMap<>();
+            Map<String, String> map = new HashMap<>();
             map.put("email", Global.email);
-            map.put("password",Global.password);
+            map.put("password", Global.password);
             map.put("action", "get_users_list");
             String params = new JSONObject(map).toString();
             Log.d("MainActivity.class", "params: " + params);
@@ -534,15 +550,15 @@ public class ScheduleRoomActivity  extends AppCompatActivity {
             progressbar.setVisibility(View.GONE);
             sent = false;
 
-            if(response.equals("fail")){
+            if (response.equals("fail")) {
                 Toast.makeText(context, "Error, please make sure there is internet connection and retry", Toast.LENGTH_LONG).show();
-            }else if(response.equals("bad_request")){
+            } else if (response.equals("bad_request")) {
                 Toast.makeText(context, "Error, bad user request, please authenticate again", Toast.LENGTH_LONG).show();
-            }else {
+            } else {
                 users_list = new ArrayList<User>();
                 try {
                     JSONArray json = new JSONArray(response);
-                    for(int i=0;i<json.length();i++){
+                    for (int i = 0; i < json.length(); i++) {
                         JSONObject json_item = new JSONObject(json.get(i).toString());
                         User new_item = new User();
                         new_item.id = json_item.getString("id");
@@ -553,16 +569,16 @@ public class ScheduleRoomActivity  extends AppCompatActivity {
                         users_list.add(new_item);
                     }
                     renderList();
-                }catch (JSONException e) {
+                } catch (JSONException e) {
                     e.printStackTrace();
                 }
             }
 
         }
 
-        void renderList(){
+        void renderList() {
 
-            if(users_list.size() > 0){
+            if (users_list.size() > 0) {
                 adapter = new DialogListUsersAdapter(context, users_list);
                 listview.setAdapter(adapter);
             }
@@ -572,16 +588,15 @@ public class ScheduleRoomActivity  extends AppCompatActivity {
     }
 
 
-
     @Override
-    public void onBackPressed(){
-        if(pick_dialog != null){
-            if(pick_dialog.isShowing()){
+    public void onBackPressed() {
+        if (pick_dialog != null) {
+            if (pick_dialog.isShowing()) {
                 pick_dialog.dismiss();
-            }else{
+            } else {
                 finish();
             }
-        }else{
+        } else {
             finish();
         }
     }
