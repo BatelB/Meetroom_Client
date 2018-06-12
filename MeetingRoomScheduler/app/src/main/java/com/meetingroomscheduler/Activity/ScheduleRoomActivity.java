@@ -206,8 +206,8 @@ public class ScheduleRoomActivity extends AppCompatActivity {
                 }
 
                 try {
-                    Date begin_hour = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(new_s_begin_hour);
-                    Date end_hour = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(new_s_end_hour);
+                    Date begin_hour = new SimpleDateFormat("HH:mm").parse(new_s_begin_hour);
+                    Date end_hour = new SimpleDateFormat("HH:mm").parse(new_s_end_hour);
                     if (begin_hour.after(end_hour) || begin_hour.equals(end_hour)) {
                         create_edit_end_hour.setError("invalid times");
                         return;
