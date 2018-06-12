@@ -35,7 +35,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- *
+ *Reads the invitation of the logged user
  */
 
 public class ReadMyInvitations extends AppCompatActivity {

@@ -34,7 +34,7 @@ import java.util.List;
 import java.util.Map;
 
 /**
- *
+ * Schedule showing invitations list including get the room list and their properties
  */
 
 public class ScheduleActivity extends AppCompatActivity {

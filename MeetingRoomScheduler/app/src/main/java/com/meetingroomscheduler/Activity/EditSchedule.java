@@ -110,7 +110,7 @@ public class EditSchedule extends AppCompatActivity {
         listview_invited_users = (ListView) findViewById(R.id.invited_users_listview);
         progressbar_create_schedule = (ProgressBar) findViewById(R.id.create_progressbar);
 
-        // display amont of invited users
+        // display amount of invited users
         invited_title = (TextView) findViewById(R.id.invited_title);
         invited_title.setText("Invited users : " + "1/" + ScheduleActivity.rooms_list.get(Global.view_room_index).chairs);
 
@@ -244,6 +244,10 @@ public class EditSchedule extends AppCompatActivity {
     }
 
     // Start time
+    /**
+     * Part of EditSchedule, Allowing edit the Begin time
+     *
+     */
     public static class beginTimePickerFragment extends DialogFragment
             implements TimePickerDialog.OnTimeSetListener {
 
@@ -265,6 +269,10 @@ public class EditSchedule extends AppCompatActivity {
     }
 
     //End time
+    /**
+     * Part of EditSchedule, Allowing edit the End time
+     *
+     */
     public static class endTimePickerFragment extends DialogFragment
             implements TimePickerDialog.OnTimeSetListener {
 
@@ -458,7 +466,10 @@ public class EditSchedule extends AppCompatActivity {
         listView.setLayoutParams(params);
     }
 
-
+    /**
+     * Part of EditSchedule, Allowing edit the Users
+     *
+     */
     public static class PickUserDialogClass extends Dialog {
 
         public Activity c;
