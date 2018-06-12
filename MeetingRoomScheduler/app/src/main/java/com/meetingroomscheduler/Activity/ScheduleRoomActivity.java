@@ -58,7 +58,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- *
+ * Schedule showing the chosen room when scheduling meetings for this room
  */
 
 public class ScheduleRoomActivity extends AppCompatActivity {
