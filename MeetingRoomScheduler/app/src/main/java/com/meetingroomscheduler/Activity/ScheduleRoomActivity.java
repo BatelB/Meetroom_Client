@@ -58,7 +58,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * Schedule showing the chosen room when scheduling meetings for this room
+ * Showing and editing the chosen room when scheduling meetings for this room
  */
 
 public class ScheduleRoomActivity extends AppCompatActivity {
@@ -249,7 +249,7 @@ public class ScheduleRoomActivity extends AppCompatActivity {
     }
 
     /**
-     * Part of EditSchedule, Allowing edit the Date time
+     * Part of EditSchedule, Allowing edit the Date time for the chosen room
      */
 
     public static class DayPickerFragment extends DialogFragment
@@ -272,6 +272,9 @@ public class ScheduleRoomActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * Part of EditSchedule, Allowing edit the begin time for the chosen room
+     */
 
     public static class beginTimePickerFragment extends DialogFragment
             implements TimePickerDialog.OnTimeSetListener {
@@ -292,7 +295,9 @@ public class ScheduleRoomActivity extends AppCompatActivity {
             ScheduleRoomActivity.create_edit_begin_hour.setText(intToDateElement(hourOfDay) + ":" + intToDateElement(minute));
         }
     }
-
+    /**
+     * Part of EditSchedule, Allowing edit the end time for the chosen room
+     */
     public static class endTimePickerFragment extends DialogFragment
             implements TimePickerDialog.OnTimeSetListener {
 
@@ -492,7 +497,9 @@ public class ScheduleRoomActivity extends AppCompatActivity {
         listView.setLayoutParams(params);
     }
 
-
+    /**
+     * Part of EditSchedule, Allowing edit user for the chosen room
+     */
     public static class PickUserDialogClass extends Dialog {
 
         public Activity c;

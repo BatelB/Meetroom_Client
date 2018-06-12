@@ -29,6 +29,9 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * Lists the users that were created already
+ */
 public class ListUsersAdapter extends ArrayAdapter<String> {
 
     private final Activity context;

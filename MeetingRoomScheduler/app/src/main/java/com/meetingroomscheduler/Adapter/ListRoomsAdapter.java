@@ -29,6 +29,9 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * Lists the rooms that were created already
+ */
 
 public class ListRoomsAdapter extends ArrayAdapter<String> {
 

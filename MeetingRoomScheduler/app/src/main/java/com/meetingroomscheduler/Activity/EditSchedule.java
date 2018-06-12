@@ -223,6 +223,9 @@ public class EditSchedule extends AppCompatActivity {
         getSchedule();
     }
 
+    /**
+     * Part of EditSchedule, Allowing edit the Date
+     */
     public static class DayPickerFragment extends DialogFragment
             implements DatePickerDialog.OnDateSetListener {
 

@@ -26,9 +26,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- *
+ * Showing the Room details
  */
-
 public class ScheduleRoomListAdapter extends ArrayAdapter<String> {
 
     private final Activity context;

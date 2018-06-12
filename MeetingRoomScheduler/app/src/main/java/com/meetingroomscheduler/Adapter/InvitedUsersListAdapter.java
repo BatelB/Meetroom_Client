@@ -19,7 +19,7 @@ import com.meetingroomscheduler.R;
 import java.util.ArrayList;
 
 /**
- *
+ * Getting the users that were invited to the meeting
  */
 
 public class InvitedUsersListAdapter extends ArrayAdapter<String> {

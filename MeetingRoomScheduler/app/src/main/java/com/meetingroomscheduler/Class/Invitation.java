@@ -3,7 +3,7 @@ package com.meetingroomscheduler.Class;
 import java.util.ArrayList;
 
 /**
- *
+ * The Invitation Class, combines the room object the the meeting details date, etc..
  */
 
 public class Invitation {

@@ -28,6 +28,9 @@ import java.util.HashMap;
 import java.util.Map;
 
 
+/**
+ * Getting the Users List for invitation while scheduling a room
+ */
 public class DialogListUsersAdapter extends ArrayAdapter<String> {
 
     private final Activity context;

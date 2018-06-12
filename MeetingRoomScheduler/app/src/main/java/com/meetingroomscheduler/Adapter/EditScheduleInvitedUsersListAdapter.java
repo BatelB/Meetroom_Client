@@ -2,17 +2,14 @@ package com.meetingroomscheduler.Adapter;
 
 import android.app.Activity;
 import android.content.Context;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.meetingroomscheduler.Activity.EditSchedule;
-import com.meetingroomscheduler.Activity.ScheduleRoomActivity;
 import com.meetingroomscheduler.Class.User;
 import com.meetingroomscheduler.Global;
 import com.meetingroomscheduler.R;
@@ -20,22 +17,22 @@ import com.meetingroomscheduler.R;
 import java.util.ArrayList;
 
 /**
- *
+ * Editing the users that were invited to the meeting
  */
 
 public class EditScheduleInvitedUsersListAdapter extends ArrayAdapter<String> {
 
     private final Activity context;
-    private final ArrayList<User> arg_0;
+    private final ArrayList<User> existing_users;
 
     private boolean sent = false;
 
-    public EditScheduleInvitedUsersListAdapter(Context context, ArrayList<User> arg_0) {
+    public EditScheduleInvitedUsersListAdapter(Context context, ArrayList<User> existing_users) {
 
-        super(context, R.layout.invited_user_item, new String[arg_0.size()]);
+        super(context, R.layout.invited_user_item, new String[existing_users.size()]);
 
         this.context = (Activity) context;
-        this.arg_0 = arg_0;
+        this.existing_users = existing_users;
 
         sent = false;
     }
@@ -49,9 +46,9 @@ public class EditScheduleInvitedUsersListAdapter extends ArrayAdapter<String> {
         TextView fullname = (TextView) rowView.findViewById(R.id.invited_user_fullname);
         ImageView delete = (ImageView) rowView.findViewById(R.id.invited_user_delete);
 
-        fullname.setText(arg_0.get(pos).fullname);
+        fullname.setText(existing_users.get(pos).fullname);
 
-        if(arg_0.get(pos).id.equals(Global.current_user.id)){
+        if(existing_users.get(pos).id.equals(Global.current_user.id)){
             delete.setVisibility(View.GONE);
         }else{
             delete.setOnClickListener(new View.OnClickListener() {

@@ -1,9 +1,8 @@
 package com.meetingroomscheduler.Class;
 
 /**
- *
+ * The Room Class, stores the room properties as equipment number of chairs etc...
  */
-
 public class Room {
 
     public String id = "";

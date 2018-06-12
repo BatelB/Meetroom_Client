@@ -28,7 +28,9 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-
+/**
+ * Editing the Users List for invitation while scheduling a room
+ */
 public class EditScheduleDialogListUsersAdapter extends ArrayAdapter<String> {
 
     private final Activity context;

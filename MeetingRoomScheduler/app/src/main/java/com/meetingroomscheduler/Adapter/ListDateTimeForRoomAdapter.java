@@ -37,7 +37,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- *
+ * Getting the dates of other scheduled meeting for the current room while scheduling a room
  */
 
 public class ListDateTimeForRoomAdapter extends ArrayAdapter<String> {

@@ -1,7 +1,7 @@
 package com.meetingroomscheduler.Class;
 
 /**
- *
+ * The Schedule Class, stores the schedule properties as time, room_id etc..
  */
 
 public class Schedule {

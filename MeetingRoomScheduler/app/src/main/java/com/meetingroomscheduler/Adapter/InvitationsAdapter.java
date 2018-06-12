@@ -1,8 +1,7 @@
 package com.meetingroomscheduler.Adapter;
 
-/**
- *
- */
+
+
 
 import android.app.Activity;
 import android.content.Context;
@@ -24,6 +23,9 @@ import com.meetingroomscheduler.R;
 
 import java.util.ArrayList;
 
+/**
+ * Getting user's invitations
+ */
 public class InvitationsAdapter extends ArrayAdapter<String> {
 
     private final Activity context;

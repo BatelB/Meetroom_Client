@@ -1,7 +1,7 @@
 package com.meetingroomscheduler.Class;
 
 /**
- *
+ * The User Class, stores the user properties as id, email, password and type...
  */
 
 public class User {
